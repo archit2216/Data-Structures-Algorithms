@@ -1,5 +1,6 @@
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
         int limit=(int)Math.pow(2,nums.length);
         List<List<Integer>> ans=new ArrayList<>();
         HashSet<List<Integer>> hs=new HashSet<>();
@@ -13,7 +14,6 @@ class Solution {
                     al.add(nums[j]);
                 }
             }
-            Collections.sort(al);
             if(!hs.contains(al)){
                 hs.add(al);
                 ans.add(al);
