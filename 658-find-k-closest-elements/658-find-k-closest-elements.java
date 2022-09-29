@@ -1,41 +1,20 @@
 class Solution {
-    public List<Integer> findClosestElements(int[] nums, int k, int x) {
-        int[] arr=new int[nums.length];
-        int si=-1;
-        int minDiff=Integer.MAX_VALUE;
-        for(int i=0;i<arr.length;i++){
-            arr[i]=Math.abs(nums[i]-x);
-            if(minDiff>Math.abs(nums[i]-x)){
-                minDiff=Math.abs(nums[i]-x);
-                si=i;
-            }
-        }
-        int i=si-1;
-        int j=si+1;
-        int count=1;
-        List<Integer> al=new ArrayList<>();
-        al.add(nums[si]);
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        int beg=0;
+        int end=arr.length-1;
         
-        while(count<k){
-            if(i>=0 && j<arr.length && arr[i]<arr[j]){
-                al.add(nums[i]);
-                i--;
-            }else if(i>=0 && j<arr.length && arr[i]>arr[j]){
-                al.add(nums[j]);
-                j++;
-            }else if(i>=0 && j<arr.length && arr[i]==arr[j]){
-                al.add(nums[i]);
-                i--;
-            }else if(i>=0){
-                al.add(nums[i]);
-                i--;
-            }else if(j<arr.length){
-                al.add(nums[j]);
-                j++;
+        while(end-beg>=k){
+            if(Math.abs(arr[beg]-x)>Math.abs(arr[end]-x)){
+                beg++;
+            }else{
+                end--;
             }
-            count++;
         }
-        Collections.sort(al);
+        
+        List<Integer> al=new ArrayList<>();
+        for(int i=beg;i<=end;i++){
+            al.add(arr[i]);
+        }
         return al;
     }
 }
