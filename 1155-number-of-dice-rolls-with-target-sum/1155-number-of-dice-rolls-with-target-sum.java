@@ -24,7 +24,7 @@ class Solution {
         return ans;
     }
     public int numRollsToTarget(int n, int k, int target) {
-        Long[][] dp=new Long[n+1][target+1];
+        Long[][] dp=new Long[31][1001];
         return (int)(getSum(n,k,target,dp)%mod);
     }
 }
