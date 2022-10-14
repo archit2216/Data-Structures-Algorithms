@@ -118,7 +118,7 @@ class Solution
 {
     static int c1;
     static int c2;
-    static void findTurns(Node root,int first,int second,int dir,int turns){
+    static void countTurns(Node root,int first,int second,int dir,int turns){
         if(root==null){
             return;
         }
@@ -133,26 +133,24 @@ class Solution
         }
         
         if(dir==0){
-            findTurns(root.left,first,second,0,turns);
-            findTurns(root.right,first,second,1,turns+1);
-        }else{
-            findTurns(root.left,first,second,0,turns+1);
-            findTurns(root.right,first,second,1,turns);
+            countTurns(root.left,first,second,0,turns);
+            countTurns(root.right,first,second,1,turns+1);
+        }
+        else{
+            countTurns(root.left,first,second,0,turns+1);
+            countTurns(root.right,first,second,1,turns);
         }
     }
     static Node LowestCommon(Node root,int first,int second){
         if(root==null){
             return null;
         }
-        if(root.data==first){
+        if(root.data==first || root.data==second){
             return root;
         }
-        if(root.data==second){
-            return root;
-        }
-        
         Node ls=LowestCommon(root.left,first,second);
         Node rs=LowestCommon(root.right,first,second);
+        
         if(ls!=null && rs!=null){
             return root;
         }
@@ -162,6 +160,7 @@ class Solution
         if(ls==null && rs!=null){
             return rs;
         }
+        
         return null;
     }
     static int NumberOfTurns(Node root, int first, int second)
@@ -169,15 +168,14 @@ class Solution
         Node lca=LowestCommon(root,first,second);
         c1=0;
         c2=0;
-        findTurns(lca.left,first,second,0,0);
-        findTurns(lca.right,first,second,1,0);
+        countTurns(lca.left,first,second,0,0);
+        countTurns(lca.right,first,second,1,0);
         
         if(lca.data==first || lca.data==second){
             return c1+c2;
         }else{
             return c1+c2+1;
         }
-        
         //your code here
     }
 }
