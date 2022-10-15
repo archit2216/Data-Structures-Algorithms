@@ -18,7 +18,6 @@ class Solution {
                 maxIndex=i;
             }
         }
-        
         int number=nums[maxIndex];
         List<Integer> al=new ArrayList<>();
         for(int i=maxIndex;i>=0;i--){
@@ -28,7 +27,7 @@ class Solution {
                 number=nums[i];
             }
         }
-        Collections.sort(al);
+        Collections.reverse(al);
         return al;
     }
 }
