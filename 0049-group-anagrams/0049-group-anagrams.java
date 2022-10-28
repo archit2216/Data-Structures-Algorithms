@@ -1,42 +1,20 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        List<List<String>> ans=new ArrayList<>();
-        List<String> al=new ArrayList<>();
-        
-        List<int[]> arrcheck=new ArrayList<>();
-        
-        for(int i=0;i<strs.length;i++){
-            int[] arr=new int[26];
-            String word=strs[i];
-            for(int j=0;j<word.length();j++){
-                char ch=word.charAt(j);
-                arr[ch-'a']++;
-            }
-            
-            if(ans.size()==0){
-                al=new ArrayList<>();
+        HashMap<String,List<String>> hm=new HashMap<>();
+        for(String word:strs){
+            char[] arr=word.toCharArray();
+            Arrays.sort(arr);
+            String sortedStr=String.valueOf(arr);
+            if(hm.containsKey(sortedStr)){
+                List<String> al=hm.get(sortedStr);
                 al.add(word);
-                ans.add(al);
-                arrcheck.add(arr);
+                hm.put(sortedStr,al);
             }else{
-                boolean flag=false;
-                for(int x=0;x<arrcheck.size();x++){
-                    int[] secondarr=arrcheck.get(x);
-                    if(Arrays.equals(arr,secondarr)){
-                        al=ans.get(x);
-                        al.add(word);
-                        flag=true;
-                        break;
-                    }
-                }
-                if(!flag){
-                    arrcheck.add(arr);
-                    al=new ArrayList<>();
-                    al.add(word);
-                    ans.add(al);
-                }
+                List<String> al=new ArrayList<>();
+                al.add(word);
+                hm.put(sortedStr,al);
             }
         }
-        return ans;
+        return new ArrayList<>(hm.values());
     }
 }
