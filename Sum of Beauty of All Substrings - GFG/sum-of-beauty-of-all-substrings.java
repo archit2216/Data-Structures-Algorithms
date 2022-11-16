@@ -29,22 +29,18 @@ class Solution {
         int sum=0;
         for(int i=0;i<s.length();i++){
             int[] arr=new int[26];
-            HashSet<Character> hs=new HashSet<>();
             for(int j=i;j<s.length();j++){
                 char ch=s.charAt(j);
-                hs.add(ch);
                 arr[ch-'a']++;
                 int max=0;
                 int min=1000;
-                if(hs.size()>1){
-                    for(int k=0;k<26;k++){
-                        if(arr[k]>0){
-                            max=Math.max(max,arr[k]);
-                            min=Math.min(min,arr[k]);
-                        }
+                for(int k=0;k<26;k++){
+                    if(arr[k]>0){
+                        max=Math.max(max,arr[k]);
+                        min=Math.min(min,arr[k]);
                     }
-                    sum+=(max-min);
                 }
+                sum+=(max-min);
             }
         }
         return sum;
