@@ -162,31 +162,45 @@ class Solution {
             if(s1!=s2){
                 return false;
             }
-            ArrayList<Integer> al1=new ArrayList<>();
-            ArrayList<Integer> al2=new ArrayList<>();
+            HashMap<Integer,Integer> hm1=new HashMap<>();
+            HashMap<Integer,Integer> hm2=new HashMap<>();
             while(s1>0 && s2>0){
                 if(rem1.left!=null){
-                    al1.add(rem1.left.data);
+                    if(hm1.containsKey(rem1.left.data)){
+                        hm1.put(rem1.left.data,hm1.get(rem1.left.data)+1);
+                    }else{
+                        hm1.put(rem1.left.data,1);
+                    }
                     q1.add(rem1.left);
                 }
                 if(rem1.right!=null){
-                    al1.add(rem1.right.data);
+                    if(hm1.containsKey(rem1.right.data)){
+                        hm1.put(rem1.right.data,hm1.get(rem1.right.data)+1);
+                    }else{
+                        hm1.put(rem1.right.data,1);
+                    }
                     q1.add(rem1.right);
                 }
                 if(rem2.left!=null){
-                    al2.add(rem2.left.data);
+                    if(hm2.containsKey(rem2.left.data)){
+                        hm2.put(rem2.left.data,hm1.get(rem2.left.data)+1);
+                    }else{
+                        hm2.put(rem2.left.data,1);
+                    }
                     q2.add(rem2.left);
                 }
                 if(rem2.right!=null){
-                    al2.add(rem2.right.data);
+                    if(hm2.containsKey(rem2.right.data)){
+                        hm2.put(rem2.right.data,hm1.get(rem2.right.data)+1);
+                    }else{
+                        hm2.put(rem2.right.data,1);
+                    }
                     q2.add(rem2.right);
                 }
                 s1--;
                 s2--;
             }
-            Collections.sort(al1);
-            Collections.sort(al2);
-            if(!al1.equals(al2)){
+            if(!hm1.equals(hm2)){
                 return false;
             }
         }
