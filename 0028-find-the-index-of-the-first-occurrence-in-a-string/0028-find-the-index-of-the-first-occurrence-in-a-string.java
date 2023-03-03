@@ -3,11 +3,15 @@ class Solution {
         if(needle.length()>haystack.length()){
             return -1;
         }
-        
-        for(int i=0;i<=haystack.length()-needle.length();i++){
-            String sub=haystack.substring(i,needle.length()+i);
-            if(sub.equals(needle)){
-                return i;
+        StringBuilder sb=new StringBuilder(haystack.substring(0,needle.length()));
+        if((sb.toString()).equals(needle)){
+            return 0;
+        }
+        for(int i=needle.length();i<haystack.length();i++){
+            sb.deleteCharAt(0);
+            sb.append(haystack.charAt(i));
+            if((sb.toString()).equals(needle)){
+                return i-needle.length()+1;
             }
         }
         return -1;
