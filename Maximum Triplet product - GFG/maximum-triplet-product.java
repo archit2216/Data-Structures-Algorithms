@@ -17,12 +17,38 @@ class Solution {
             return arr[0]*arr[1]*arr[n-1];
         }
         
-        Arrays.sort(arr);
-        
-        if(arr[0]*arr[1]*arr[n-1]<arr[n-3]*arr[n-2]*arr[n-1]){
-            return arr[n-3]*arr[n-2]*arr[n-1];
+        long min1=Integer.MAX_VALUE;
+        long min2=Integer.MAX_VALUE;
+        long max1=Integer.MIN_VALUE;
+        long max2=Integer.MIN_VALUE;
+        long max3=Integer.MIN_VALUE;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]<0){
+                if(min1>arr[i]){
+                    min2=min1;
+                    min1=arr[i];
+                }else if(min1<=arr[i] && min2>arr[i]){
+                    min2=arr[i];
+                }
+            }
+            if(max1<arr[i]){
+                max3=max2;
+                max2=max1;
+                max1=arr[i];
+            }else if(max1>=arr[i] && max2<arr[i]){
+                max3=max2;
+                max2=arr[i];
+            }else if(max1>=arr[i] && max2>=arr[i] && max3<arr[i]){
+                max3=arr[i];
+            }
         }
-        return arr[0]*arr[1]*arr[n-1];
+        
+        if(min1!=Integer.MAX_VALUE && min2!=Integer.MAX_VALUE){
+            if(min1*min2*max1>max1*max2*max3){
+                return min1*min2*max1;
+            }
+        }
+        return max3*max2*max1;
         // Complete the function
     }
 }
