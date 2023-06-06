@@ -120,6 +120,8 @@ public static void findPreSuc(Node root, int key)
     if(root==null){
         return;
     }
+    
+    findPreSuc(root.left,key);
     if(root.data>key){
         if(suc==null){
             suc=root;
@@ -135,8 +137,6 @@ public static void findPreSuc(Node root, int key)
             pre=root;
         }
     }
-    
-    findPreSuc(root.left,key);
     findPreSuc(root.right,key);
     // code here.
     
