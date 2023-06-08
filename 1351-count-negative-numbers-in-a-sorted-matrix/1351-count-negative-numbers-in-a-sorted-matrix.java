@@ -8,9 +8,8 @@ class Solution {
         while(i<grid.length){
             if(j>=0 && grid[i][j]<0){
                 j--;
-                count++;
             }else{
-                j=grid[0].length-1;
+                count+=(grid[0].length-1-j);
                 i++;
             }
         }
