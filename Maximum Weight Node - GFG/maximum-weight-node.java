@@ -62,32 +62,22 @@ class GFG{
 //User function Template for Java
 
 class Solution{
-    public int maxWeightCell(int N, int Edge[]){
-        if(Edge.length==1){
-            return 0;
-        }
-       HashMap<Integer,Integer> hm=new HashMap<>();
+    public int maxWeightCell(int n, int arr[]){
+       int[] count=new int[n];
+       for(int i=0;i<n;i++){
+           if(arr[i]!=-1){
+               count[arr[i]]+=i;
+           }
+       }
        
-       for(int i=0;i<Edge.length;i++){
-           if(Edge[i]!=-1){
-               int num=Edge[i];
-               if(hm.containsKey(num)){
-                   int val=hm.get(num);
-                   val+=i;
-                   hm.put(num,val);
-               }else{
-                   hm.put(num,i);
-               }
-           }
-       }
        int max=0;
-       int key=0;
-       for(int i=0;i<Edge.length;i++){
-           if(hm.containsKey(i) && max<hm.get(i)){
-               max=hm.get(i);
-               key=i;
+       int node=0;
+       for(int i=0;i<n;i++){
+           if(count[i]>=max){
+               max=count[i];
+               node=i;
            }
        }
-       return key;
+       return node;
     }
 }
