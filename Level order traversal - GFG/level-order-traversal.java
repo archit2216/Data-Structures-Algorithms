@@ -135,14 +135,19 @@ class Solution
         ArrayList<Integer> al=new ArrayList<>();
         
         while(q.size()>0){
-            Node rem=q.remove();
-            al.add(rem.data);
-            if(rem.left!=null){
-                q.add(rem.left);
+            int size=q.size();
+            while(size>0){
+                Node rem=q.remove();
+                al.add(rem.data);
+                if(rem.left!=null){
+                    q.add(rem.left);
+                }
+                if(rem.right!=null){
+                    q.add(rem.right);
+                }
+                size--;
             }
-            if(rem.right!=null){
-                q.add(rem.right);
-            }
+            
         }
         return al;
     }
