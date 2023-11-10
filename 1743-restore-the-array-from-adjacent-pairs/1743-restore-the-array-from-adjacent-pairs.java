@@ -1,26 +1,14 @@
 class Solution {
     ArrayList<Integer> ans;
-    public void dfs(int src,HashMap<Integer,ArrayList<Integer>> graph,HashSet<Integer> vis){
-        vis.add(src);
-        ans.add(src);
-        for(Integer nbr:graph.get(src)){
-            if(!vis.contains(nbr)){
-                dfs(nbr,graph,vis);
-            }
-        }
-    }
     public int[] restoreArray(int[][] adjacentPairs) {
         if(adjacentPairs.length==1){
             return adjacentPairs[0];
         }
         
         HashMap<Integer,ArrayList<Integer>> hm=new HashMap<>();
-        HashSet<Integer> hs=new HashSet<>();
         for(int i=0;i<adjacentPairs.length;i++){
             int src=adjacentPairs[i][0];
             int dest=adjacentPairs[i][1];
-            hs.add(src);
-            hs.add(dest);
             if(hm.containsKey(src)){
                 ArrayList<Integer> al=hm.get(src);
                 al.add(dest);
@@ -42,11 +30,24 @@ class Solution {
             }
         }
         ans=new ArrayList<>();
-        HashSet<Integer> vis=new HashSet<>();
-        for(Integer x:hs){
-            if(hm.containsKey(x) && hm.get(x).size()==1){
-                dfs(x,hm,vis);
+        int pot=0;
+        for(Integer k:hm.keySet()){
+            if(hm.get(k).size()==1){
+                pot=k;
                 break;
+            }
+        }
+        
+        HashSet<Integer> hs=new HashSet<>();
+        ans.add(pot);
+        hs.add(pot);
+        while(ans.size()<adjacentPairs.length+1){
+            for(Integer x:hm.get(pot)){
+                if(!hs.contains(x)){
+                    ans.add(x);
+                    hs.add(x);
+                    pot=x;
+                }
             }
         }
         int[] finalArr=new int[adjacentPairs.length+1];
