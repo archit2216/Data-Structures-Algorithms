@@ -1,21 +1,30 @@
 class Solution {
-    public double solve(double x,int n){
+    public double myPow(double x, int n) {
+        boolean flag=false;
+        if(n<0){
+            n=-n;
+            flag=true;
+        }
+        
+        double ans=pow(x,n);
+        if(flag){
+            return 1/ans;
+        }
+        return ans;
+    }
+    
+    public double pow(double x,int n){
         if(n==0){
             return 1;
         }
+        if(n==1){
+            return x;
+        }
         
         if(n%2==0){
-            return solve(x*x,n/2);
+            return pow(x*x,n/2);
         }else{
-            return x*solve(x*x,n/2);
+            return x*pow(x*x,n/2);
         }
-    }
-    public double myPow(double x, int n) {
-        double ans=solve(x,Math.abs(n));
-        
-        if(n<0){
-            ans=1/ans;
-        }
-        return ans;
     }
 }
