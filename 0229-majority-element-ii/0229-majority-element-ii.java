@@ -1,46 +1,55 @@
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
-        int val1=nums[0];
-        int c1=1;
-        int val2=nums[0];
+        int c1=0;
+        int e1=0;
         int c2=0;
-        for(int i=1;i<nums.length;i++){
-            if(nums[i]==val1){
-                c1++;
-            }else if(nums[i]==val2){
-                c2++;
-            }else{
-                if(c1==0){
-                    c1=1;
-                    val1=nums[i];
-                }else if(c2==0){
-                    c2=1;
-                    val2=nums[i];
-                }else{
-                    c1--;
-                    c2--;
-                }
-            }
-        }
+        int e2=0;
         
-        int count1=0;
-        int count2=0;
         for(int i=0;i<nums.length;i++){
-            if(nums[i]==val1){
-                count1++;
+            if(c1==0  && e2!=nums[i]){
+                e1=nums[i];
+                c1=1;
             }
-            else if(nums[i]==val2){
-                count2++;
+            else if(c2==0 && e1!=nums[i]){
+                e2=nums[i];
+                c2=1;
+            }
+            else if(e1==nums[i]){
+                c1++;
+            }
+            else if(e2==nums[i]){
+                c2++;
+            }
+            else if(e1!=nums[i] && e2==nums[i]){
+                c2++;
+                c1--;
+            }
+            else if(e1==nums[i] && e2!=nums[i]){
+                c1++;
+                c2--;
+            }
+            else if(e1!=nums[i] && e2!=nums[i]){
+                c1--;
+                c2--;
             }
         }
-        List<Integer> ans=new ArrayList<>();
         
-        if(count1>nums.length/3){
-            ans.add(val1);
+        c1=0;
+        c2=0;
+        for(int i=0;i<nums.length;i++){
+            if(e1==nums[i]){
+                c1++;
+            }else if(e2==nums[i]){
+                c2++;
+            }
         }
-        if(count2>nums.length/3){
-            ans.add(val2);
+        List<Integer> al=new ArrayList<>();
+        if(c1>nums.length/3){
+            al.add(e1);
         }
-        return ans;
+        if(c2>nums.length/3){
+            al.add(e2);
+        }
+        return al;
     }
 }
