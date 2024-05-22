@@ -4,19 +4,18 @@ class Solution {
             return s.length();
         }
         
+        int max=0;
+        HashMap<Character,Integer> hm=new HashMap<>();
         int i=0;
         int j=0;
-        int max=0;
-        HashSet<Character> hs=new HashSet<>();
         while(j<s.length()){
-            if(!hs.contains(s.charAt(j))){
-                hs.add(s.charAt(j));
-                j++;
-                max=Math.max(max,hs.size());
-            }else{
-                hs.remove(s.charAt(i));
-                i++;
+            char ch=s.charAt(j);
+            if(hm.containsKey(ch)){
+                i=Math.max(i,hm.get(ch)+1);
             }
+            max=Math.max(max,j-i+1);
+            hm.put(ch,j);
+            j++;
         }
         return max;
     }
