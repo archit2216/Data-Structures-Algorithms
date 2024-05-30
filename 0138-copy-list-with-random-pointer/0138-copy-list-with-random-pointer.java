@@ -14,28 +14,22 @@ class Node {
 */
 
 class Solution {
-    
-    public void copylist(Node head){
-        if(head==null){
-            return;
-        }
+    public Node deepCopy(Node head){
+        Node dummy=new Node(-1);
+        Node temp=dummy;
         
         Node curr=head;
         while(curr!=null){
-            Node forw=curr.next;
-            Node node=new Node(curr.val);
-            node.next=curr.next;
-            curr.next=node;
+            temp.next=curr.next;
+            curr.next=curr.next.next;
+            curr=curr.next;
             
-            curr=forw;
-        }
-    }
-    
-    public void copyRandomPointers(Node head){
-        if(head==null){
-            return;
+            temp=temp.next;
         }
         
+        return dummy.next;
+    }
+    public void copyRandom(Node head){
         Node curr=head;
         while(curr!=null){
             Node Random=curr.random;
@@ -45,30 +39,19 @@ class Solution {
             curr=curr.next.next;
         }
     }
-    
-    public Node deepCopy(Node head){
-        if(head==null){
-            return null;
-        }
-        Node dummy=new Node(-1);
-        Node prev=dummy;
+    public void copyList(Node head){
         Node curr=head;
-        while(curr!=null){
-            prev.next=curr.next;
-            curr.next=curr.next.next;
-            
-            curr=curr.next;
-            prev=prev.next;
-        }
         
-        return dummy.next;
+        while(curr!=null){
+            Node newNode=new Node(curr.val);
+            newNode.next=curr.next;
+            curr.next=newNode;
+            curr=curr.next.next;
+        }
     }
     public Node copyRandomList(Node head) {
-        if(head==null){
-            return null;
-        }
-        copylist(head);
-        copyRandomPointers(head);
+        copyList(head);
+        copyRandom(head);
         return deepCopy(head);
     }
 }
