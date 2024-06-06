@@ -1,9 +1,8 @@
 class Solution {
-    
+    List<List<String>> ans;
     public boolean isPalindrome(String s){
         int si=0;
         int ei=s.length()-1;
-        
         while(si<ei){
             if(s.charAt(si)!=s.charAt(ei)){
                 return false;
@@ -11,29 +10,27 @@ class Solution {
             si++;
             ei--;
         }
-        
         return true;
     }
-    public void partitionhelper(String s,List<List<String>> ans,String asf){
+    public void solve(String s,List<String> al){
         if(s.length()==0){
-            String[] newStr=asf.split(" ");
-            List<String> al=Arrays.asList(newStr);
-            ans.add(al);
+            ans.add(new ArrayList<>(al));
             return;
         }
         
         for(int i=0;i<s.length();i++){
             String pre=s.substring(0,i+1);
             if(isPalindrome(pre)){
-                 String rem=s.substring(i+1);
-                partitionhelper(rem,ans,asf+pre+" ");
+                String post=s.substring(i+1);
+                al.add(pre);
+                solve(post,al);
+                al.remove(al.size()-1);
             }
         }
     }
-    
     public List<List<String>> partition(String s) {
-        List<List<String>> ans=new ArrayList<>();
-        partitionhelper(s,ans,"");
+        ans=new ArrayList<>();
+        solve(s,new ArrayList<>());
         return ans;
     }
 }
