@@ -1,27 +1,12 @@
 class Solution {
     public int minBitFlips(int start, int goal) {
-        String x=Integer.toBinaryString(start);
-        String y=Integer.toBinaryString(goal);
+        int xor=start^goal;
         int count=0;
-        String add="";
-        if(x.length()>y.length()){
-            int diff=x.length()-y.length();
-            for(int i=0;i<diff;i++){
-                add+='0';
-            }
-            y=add+y;
-        }else{
-            int diff=y.length()-x.length();
-            for(int i=0;i<diff;i++){
-                add+='0';
-            }
-            x=add+x;
+        while(xor!=0){
+            count+=(xor&1);
+            xor>>=1;
         }
-        for(int i=0;i<x.length();i++){
-            if(x.charAt(i)!=y.charAt(i)){
-                count++;
-            }
-        }
+        
         return count;
     }
 }
